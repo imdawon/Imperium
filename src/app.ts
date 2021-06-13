@@ -1,4 +1,3 @@
-// app.ts
 import express from "express";
 
 const app = express();
@@ -8,6 +7,6 @@ app.get("/", (req, res) => {
     res.send("Hit the home page, homie :)");
 });
 
-app.listen((port) => {
+app.listen(port => {
     console.log(`Listening @ http://localhost:${port} 🚪`)
 })
