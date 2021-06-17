@@ -7,6 +7,6 @@ app.get("/", (req, res) => {
     res.send("Hit the home page, homie :)");
 });
 
-app.listen(port => {
-    console.log(`Listening @ http://localhost:${port} 🚪`)
-})
+app.listen(port, () => {
+    console.log(`Listening @ port ${port} 🚪`)
+});

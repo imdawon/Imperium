@@ -1,5 +1,5 @@
 {
-  "name": "Imperium",
+  "name": "imperium",
   "version": "1.0.0",
   "description": "Visualize and control connected clients.",
   "main": "dist/app.js",
@@ -15,7 +15,7 @@
     "typescript": "^4.3.2"
   },
   "scripts": {
-    "start": "nodemon .",
+    "start": "nodemon /dist/app.js",
     "test": "jest"
   },
   "repository": {
