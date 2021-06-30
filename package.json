@@ -1,7 +1,7 @@
 {
   "name": "imperium",
   "version": "1.0.0",
-  "description": "A socket server with an HTML5 dashboard.",
+  "description": "A socket server with an HTML5 dashboard to manage clients.",
   "main": "index.js",
   "dependencies": {},
   "devDependencies": {
