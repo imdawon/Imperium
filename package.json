@@ -1,0 +1,16 @@
+{
+  "name": "imperium",
+  "version": "1.0.0",
+  "description": "A socket server with an HTML5 dashboard.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  },
+  "scripts": {
+    "start": "nodemon ."
+  },
+  "keywords": [],
+  "author": "Dawson Hensel",
+  "license": "ISC"
+}
