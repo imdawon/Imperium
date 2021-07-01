@@ -2,14 +2,21 @@
 const http = require("http");
 const fs = require("fs");
 const server = http.createServer((req, res) => {
-    fs.readFile(__dirname + "/views/index.html", (err, data) => {
-        if (err) {
-            res.writeHead(404);
-            res.end("404");
-        }
-        res.writeHead(200);
-        res.end(data);
-    })
+    switch (req._url) {
+        case undefined:
+            fs.readFile(__dirname + "/views/index.html", (err, data) => {
+                if (err) {
+                    res.writeHead(404);
+                    res.end("404");
+                }
+                res.writeHead(200);
+                res.end(data);
+            });        
+            break;
+    
+        default:
+            break;
+    }
 })
 
 server.on("clientError", (err, socket) => {
