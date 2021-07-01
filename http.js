@@ -20,7 +20,13 @@ const server = http.createServer((req, res) => {
 })
 
 server.on("clientError", (err, socket) => {
-    socket.end("HTTP/2 400 Bad Request\r\n\r\n");
-})
+    socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
+});
 
-server.listen(4000);
+const port = 4000;
+try {
+    server.listen(port);
+    console.log(`HTTP Server listening on ${port}`)
+} catch(err) {
+    console.log("Error bootstrapping HTTP Server",err);
+}

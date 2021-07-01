@@ -2,6 +2,7 @@
 const net = require("net");
 const util = require("./utils");
 const clients = require("./clients.js")
+const port = 11111;
 const server = net.createServer((client) => {
     client.on("error", (error) => {
         switch (error.code) {
@@ -17,9 +18,9 @@ const server = net.createServer((client) => {
 
 server.listen({
    host : "0.0.0.0",
-   port : 11111,
+   port,
 },() => {
-    console.log("Started server on", server.address());
+    console.log("Socket server listening on", server.address().address, port);
 });
 
 server.on("connection", async (client) => {
