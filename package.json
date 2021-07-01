@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "description": "A socket server with an HTML5 dashboard to manage clients.",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "ws": "^7.5.1"
+  },
   "devDependencies": {
     "nodemon": "^2.0.7"
   },
