@@ -3,9 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const server = http.createServer((req, res) => {
     let url = req.url;
-    console.log(req.url)
     if (req.url === "/") url = "/views/index.html"
-    console.log("url",__dirname + url)
     fs.readFile(__dirname + url, (err, data) => {
         if (err) {
             res.writeHead(404);
