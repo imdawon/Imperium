@@ -4,7 +4,7 @@
   "description": "A socket server with an HTML5 dashboard to manage clients.",
   "main": "index.js",
   "dependencies": {
-    "ws": "^7.5.1"
+    "socket.io": "^4.1.2"
   },
   "devDependencies": {
     "nodemon": "^2.0.7"

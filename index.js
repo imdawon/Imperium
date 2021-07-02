@@ -1,4 +1,4 @@
 // Bootstrap
-const socketServer = require("./socket_server");
-const web = require("./http");
-const websocket = require("./websocket");
+const socketServer = require("./socket_server.js");
+const web = require("./http.js");
+const websocket = require("./websocket.js");

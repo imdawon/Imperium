@@ -2,22 +2,19 @@
 const http = require("http");
 const fs = require("fs");
 const server = http.createServer((req, res) => {
-    switch (req._url) {
-        case undefined:
-            fs.readFile(__dirname + "/views/index.html", (err, data) => {
-                if (err) {
-                    res.writeHead(404);
-                    res.end("404");
-                }
-                res.writeHead(200);
-                res.end(data);
-            });        
-            break;
-    
-        default:
-            break;
-    }
-})
+    let url = req.url;
+    console.log(req.url)
+    if (req.url === "/") url = "/views/index.html"
+    console.log("url",__dirname + url)
+    fs.readFile(__dirname + url, (err, data) => {
+        if (err) {
+            res.writeHead(404);
+            res.end("404");
+        }
+        res.writeHead(200);
+        res.end(data);
+    });  
+});
 
 server.on("clientError", (err, socket) => {
     socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
@@ -30,3 +27,5 @@ try {
 } catch(err) {
     console.log("Error bootstrapping HTTP Server",err);
 }
+
+module.exports = server;
