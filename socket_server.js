@@ -1,7 +1,8 @@
 "use strict";
 const net = require("net");
 const util = require("./utils.js");
-const clients = require("./clients.js")
+const clients = require("./clients.js");
+const sendClientCount = require("./ws_server.js");
 const port = 11111;
 const server = net.createServer((client) => {
     client.on("error", (error) => {
@@ -23,8 +24,8 @@ server.listen({
     console.log("Socket server listening on", server.address().address, port);
 });
 
-server.on("connection", async (client) => {
-    await util.getClientCount(server);
+server.on("connection", (client) => {
+    sendClientCount(1)
     console.log(`[+] Connection receieved: ${client.remoteAddress}:${client.address().port}`);
     util.takeAndSendCommand(client);
 
@@ -35,3 +36,4 @@ server.on("connection", async (client) => {
     });
 });
 
+module.exports = server;

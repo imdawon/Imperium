@@ -1,4 +1,8 @@
 "use strict";
+const dom = {
+    main : document.getElementsByTagName("main")[0],
+    clientCount : document.getElementById("client-count"),
+}
 const renderNewClient = (client) => {
     const clientDiv = document.createElement("div");
     clientDiv.className = "client";
@@ -18,11 +22,12 @@ const renderNewClient = (client) => {
     const clientUptime = document.createElement("li");
     clientUptime.innerText = `Time connected: ${client.uptime}`;
 
-    document.getElementsByTagName("main")[0].append(clientDiv);
+    dom.main.append(clientDiv);
     clientDiv.append(clientHeader);
     clientHeader.append(clientDetailsList);
     clientDetailsList.append(clientIP, clientArchitecture, clientUptime)
 };
 
-renderNewClient({ name: "kathys-iphone/dawon", ip: "127.0.0.1", architecture: "darwin", uptime: "3min" })
-renderNewClient({ name: "fridge/samsung", ip: "127.0.0.5", architecture: "linux", uptime: "35min" })
+const updateClientCount = (count) => {
+    clientCount.innerText = `Connected clients: ${count}`;
+}
