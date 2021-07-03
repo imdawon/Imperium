@@ -3,8 +3,17 @@ const http = require("http");
 const fs = require("fs");
 const server = http.createServer((req, res) => {
     let url = req.url;
-    if (req.url === "/") url = "/views/index.html"
-    fs.readFile(__dirname + url, (err, data) => {
+    switch (url) {
+        case "/":
+            url = `${__dirname}/views/index.html`;
+            break;
+        case "/favicon.ico":
+            url = `${__dirname}/favicon.ico`;
+        default:
+            url = `${__dirname}/views/${url}`;
+            break;
+    }
+    fs.readFile(url, (err, data) => {
         if (err) {
             res.writeHead(404);
             res.end("404");
