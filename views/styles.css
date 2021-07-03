@@ -1,6 +1,9 @@
 .client {
     border: 1px solid red;
+}
 
+.client-name {
+    margin-left: 10px;
 }
 
 main {
