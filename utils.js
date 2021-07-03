@@ -1,5 +1,5 @@
 "use strict";
-const server = require("./socket_server");
+const server = require("./socket_server.js");
 // Setup input prompt.
 const readline = require("readline");
 const rl = readline.createInterface({
@@ -9,9 +9,10 @@ const rl = readline.createInterface({
 
 const util = {
     getClientCount : async (server) => {
-        server.getConnections((err, count) => {
+        await server.getConnections((err, count) => {
             if(err) return err;
             else console.log(`There are ${count} connection(s) now.`);
+            return count;
         });
     },
 
