@@ -4,13 +4,40 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="styles.css">
     <title>Imperium Panel</title>
 </head>
 <body>
-    <h1>Client Panel</h1>
+    <h1>Imperium Client Dashboard</h1>
+    <h2 id="client-count">Connected clients: 0</h2>
+    <main>
+      <div class="client">
+        <h3>kathys-iphone\dawon</h3>
+        <ul>
+          <li>IP: 127.0.0.1</li>
+          <li>Architecture: darwin</li>
+          <li>Time Connected: 3 min</li>
+        </ul>
+      </div>  
+      <div class="client">
+        <h3>kathys-iphone\dawon</h3>
+        <ul>
+          <li>IP: 127.0.0.1</li>
+          <li>Architecture: darwin</li>
+          <li>Time Connected: 3 min</li>
+        </ul>
+      </div>  
+      <div class="client">
+        <h3>kathys-iphone\dawon</h3>
+        <ul>
+          <li>IP: 127.0.0.1</li>
+          <li>Architecture: darwin</li>
+          <li>Time Connected: 3 min</li>
+        </ul>
+      </div>  
+
+    </main>
 </body>
-<script src="https://cdn.socket.io/3.1.3/socket.io.min.js" integrity="sha384-cPwlPLvBTa3sKAgddT6krw0cJat7egBga3DJepJyrLl4Q9/5WLra3rrnMcyTyOnh" crossorigin="anonymous"></script>
-<script>
-  const socket = io();
-</script>
+<script src="ws_client.js"></script>
+<script src="dom.js"></script>
 </html>

@@ -1,0 +1,18 @@
+.client {
+    border: 1px solid red;
+
+}
+
+main {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    gap: 50px;
+    margin: 0 1em 0 1em;
+}
+
+@media (max-width: 960px) {
+    main {
+        grid-template-columns: auto;
+        margin: 0 5em 0 5em;
+    }
+}
