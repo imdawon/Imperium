@@ -20,7 +20,7 @@ server.listen({
    host : "0.0.0.0",
    port,
 },() => {
-    console.log("Socket server listening on", server.address().address, port);
+    console.log(`Socket server listening at ${server.address().address}:${port}`);
 });
 
 server.on("connection", (client) => {

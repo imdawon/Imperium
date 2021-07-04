@@ -27,12 +27,12 @@ server.on("clientError", (err, socket) => {
     socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
 });
 
-const port = 80;
+const port = 8888;
 try {
-    server.listen(port);
-    console.log(`HTTP Server listening on ${port}`)
+    server.listen(port, "127.0.0.1");
+    console.log(`Web Dashboard: http://127.0.0.1:${port}`)
 } catch(err) {
-    console.log("Error bootstrapping HTTP Server",err);
+    console.error("Error bootstrapping HTTP Server",err);
 }
 
 module.exports = server;
