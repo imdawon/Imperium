@@ -1,5 +1,5 @@
 "use strict";
-const webSocket = new WebSocket("ws://localhost:80");
+const webSocket = new WebSocket("ws://127.0.0.1:8888");
 
 webSocket.onopen = () => {
     webSocket.send("Connected to web dashboard.");
