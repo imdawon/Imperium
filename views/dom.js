@@ -29,5 +29,5 @@ const renderNewClient = (client) => {
 };
 
 const updateClientCount = (count) => {
-    clientCount.innerText = `Connected clients: ${count}`;
+    dom.clientCount.innerText = `Connected clients: ${count}`;
 }

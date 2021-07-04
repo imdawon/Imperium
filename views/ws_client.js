@@ -6,10 +6,10 @@ webSocket.onopen = () => {
 }
 
 webSocket.onmessage = (event) => {
-    // todo
-    // if typeof event.data is an array,
-    // parse it since its a command
-    // otherwise, just console log it
+    if (event.data.slice(0,11) === "clientCount") {
+        updateClientCount(event.data.split(" ")[1]);
+    }
+
     console.log("Received:",event.data);
 }
 
