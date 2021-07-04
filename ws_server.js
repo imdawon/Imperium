@@ -16,7 +16,7 @@ wss.on("connection", (ws) => {
 
 const sendClientCount = (count) => {
     try {
-        dashboardSocketClient.send(count);
+        dashboardSocketClient.send(`clientCount ${count}`);
     } catch {
         console.error("Unable to connect to dashboard. Try refreshing!");
     }
