@@ -1,11 +1,15 @@
 "use strict";
-const webSocket = new WebSocket("ws://localhost:4000");
+const webSocket = new WebSocket("ws://localhost:80");
 
 webSocket.onopen = () => {
     webSocket.send("Connected to web dashboard.");
 }
 
 webSocket.onmessage = (event) => {
+    // todo
+    // if typeof event.data is an array,
+    // parse it since its a command
+    // otherwise, just console log it
     console.log("Received:",event.data);
 }
 

@@ -1,12 +1,12 @@
 "use strict";
 const server = require("./http.js");
-const clients = require("./clients.js");
 const utils = require("./utils.js");
 const WebSocket = require("ws");
 const wss = new WebSocket.Server({ server });
+let dashboardSocketClient;
 
 wss.on("connection", (ws) => {
-    clients[0] = ws;
+    dashboardSocketClient = ws;
     ws.on("message", (message) => {
         console.log("Received:", message);
     });
@@ -14,9 +14,12 @@ wss.on("connection", (ws) => {
     ws.send("Connected to websocket server.");
 });
 
-const sendClientCount = (number) => {
-    console.log(clients)
-    clients[0].send(number)
+const sendClientCount = (count) => {
+    try {
+        dashboardSocketClient.send(count);
+    } catch {
+        console.error("Unable to connect to dashboard. Try refreshing!");
+    }
 }
 
 module.exports = sendClientCount;
