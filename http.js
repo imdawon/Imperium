@@ -27,7 +27,7 @@ server.on("clientError", (err, socket) => {
     socket.end("HTTP/1.1 400 Bad Request\r\n\r\n");
 });
 
-const port = 4000;
+const port = 80;
 try {
     server.listen(port);
     console.log(`HTTP Server listening on ${port}`)
