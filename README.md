@@ -6,4 +6,4 @@
 5. Run a socket client of your choice to connect to your local machines IP on port 11111.
 
 ## Overview
-We want a lean server with a solid management dashboard. The only production dependency is socket.io.
+We want a lean server with a solid management dashboard. The only production dependency is the `ws` package.
