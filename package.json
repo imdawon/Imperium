@@ -7,7 +7,7 @@
     "ws": "^7.5.1"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
+    "nodemon": "^2.0.9",
     "semver": "^7.3.5"
   },
   "scripts": {
