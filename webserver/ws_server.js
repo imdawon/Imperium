@@ -1,6 +1,6 @@
 "use strict";
 const server = require("./http.js");
-const utils = require("./utils.js");
+const utils = require("../utils.js");
 const WebSocket = require("ws");
 const wss = new WebSocket.Server({ server });
 let dashboardSocket;
