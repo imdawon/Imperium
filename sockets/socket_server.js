@@ -1,6 +1,6 @@
 "use strict";
 const net = require("net");
-const util = require("./utils.js");
+const util = require("../utils.js");
 const port = 11111;
 const socketClients = require("./clients.js");
 const server = net.createServer((client) => {

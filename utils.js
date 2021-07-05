@@ -1,6 +1,6 @@
 "use strict";
-const server = require("./socket_server.js");
-const updateDashboardClientCount = require("./ws_server.js");
+const server = require("./sockets/socket_server.js");
+const updateDashboardClientCount = require("./webserver/ws_server.js");
 // Setup input prompt.
 const readline = require("readline");
 const rl = readline.createInterface({
