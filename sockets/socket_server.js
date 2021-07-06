@@ -25,34 +25,41 @@ server.listen({
 });
 
 server.on("connection", (client) => {
-    saveNewClient(client)
+    saveNewClient(client);
 
+    // Response is saved by "data" event since it's the first request.
+    client.write("whoami");
+
+    util.getClientCount(server);
     util.mainMenu();
 
     client.on("data", (data) =>  {
         try {
-            const currentClient = getClientConnection(client);
-            currentClient.responseHistory.push(data);
+            const currentClient = util.getClientConnection(client);
+            const dataToString = data.toString().replace("\n", "");
+            currentClient.responseHistory.push(dataToString);
+            currentClient.messageCount++;
+            if (currentClient.messageCount <= 1) {
+                currentClient.name = dataToString;
+                return;
+            } else {
+                console.log(dataToString);
+            }
         } catch {
-            console.error("Could not save response from client.")
+            console.error(`Could not save response from client ${client.remoteAddress}:${client.remotePort}`);
         }
     });
+
+    client.on("disconnect", () => {
+
+    })
 });
 
-const getClientConnection = (client) => {
-    try {
-        return socketClients.filter(socketClient => {
-            socketClient.address === `${client.remoteAddress}:${client.remotePort}`
-        });
-    } catch {
-        console.warn("Could not find client.");
-        return false;
-    }
-}
+
 
 const saveNewClient = (client) => {
     console.log(`[+] Connection receieved: ${client.remoteAddress}:${client.remotePort}`);
-    socketClients.push({ address : `${client.remoteAddress}:${client.remotePort}`, client, responseHistory : [] });    
+    socketClients.push({ address : `${client.remoteAddress}:${client.remotePort}`, client, messageCount : 0, name: "", responseHistory : [] });    
 }
 
 module.exports = server;
