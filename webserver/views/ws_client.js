@@ -1,9 +1,15 @@
 "use strict";
 
 const startWebSocket = () => {
-    const webSocket = new WebSocket("ws://127.0.0.1:8888");
-    dom.connectionStatus.id = "connection-status-good";
+    let webSocket;
+    try {
+        webSocket = new WebSocket("ws://127.0.0.1:8888");
+    } catch {
+        dom.connectionStatus.id = "connection-status-warning";
+    }
+
     webSocket.onopen = () => {
+        dom.connectionStatus.id = "connection-status-good";
         webSocket.send("Connected to web dashboard.");
     }
     
