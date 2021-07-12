@@ -1,6 +1,6 @@
 "use strict";
 const net = require("net");
-const websocket = require("../webserver/ws_server.js");
+const dashboard = require("../webserver/ws_server.js");
 const manageServer = require("../manage_server.js");
 const port = 11111;
 const socketClients = require("./clients.js");
@@ -43,6 +43,7 @@ server.on("connection", (client) => {
             currentClient.messageCount++;
             if (currentClient.messageCount <= 1) {
                 setClientName(currentClient, clientResponse);
+                dashboard.uploadNewConnectionData(manageServer.getClientData(client));
 
                 return;
             } else {
@@ -59,7 +60,6 @@ const saveNewClient = (client) => {
     const fullClientAddress = `${client.remoteAddress}:${client.remotePort}`;
     console.log(`[+] Connection receieved: ${fullClientAddress}`);
     socketClients.push({ address : `${fullClientAddress}`, client, messageCount : 0, name: "", responseHistory : [], uptime: 0 });    
-    websocket.uploadNewConnectionData(manageServer.getClientData(client));
 }
 
 const setClientName = (client, name) => {
