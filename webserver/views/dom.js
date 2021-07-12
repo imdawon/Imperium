@@ -14,7 +14,7 @@ const renderNewClient = (client) => {
     const clientDetailsList = document.createElement("ul");
 
     const clientIP = document.createElement("li");
-    clientIP.innerText = client.ip;
+    clientIP.innerText = client.address;
 
     const clientArchitecture = document.createElement("li"); 
     clientArchitecture.innerText = client.architecture;

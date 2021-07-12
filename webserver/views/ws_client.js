@@ -5,9 +5,14 @@ webSocket.onopen = () => {
     webSocket.send("Connected to web dashboard.");
 }
 
+let client = {};
 webSocket.onmessage = (event) => {
     if (event.data.slice(0,11) === "clientCount") {
         updateClientCount(event.data.split(" ")[1]);
+    }
+    else if (event.data.slice(0,9) === "newClient") {
+        client = JSON.parse(event.data.replace("newClient", ""));
+        renderNewClient(client);
     }
 
     console.log("Received:",event.data);
