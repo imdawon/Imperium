@@ -18,7 +18,7 @@ const manageServer = {
             }
         } catch {
             console.error("Could not find client.");
-            return false;
+            return;
         }
     },
     
