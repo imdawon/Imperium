@@ -1,12 +1,13 @@
 "use strict";
 
 const state = {
+    getCurrentConnection : () => {
+        return state.currentConnection;
+    },
+
     setCurrentConnection : (client) => {
         state.currentConnection = client;
     },
-    getCurrentConnection : () => {
-        return state.currentConnection;
-    }
 }
 
 module.exports = state;

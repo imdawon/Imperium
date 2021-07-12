@@ -1,5 +1,5 @@
 "use strict";
-const updateDashboardClientCount = require("./webserver/ws_server.js");
+const dashboard = require("./webserver/ws_server.js");
 const socketClients = require("./sockets/clients.js");
 const state = require("./sockets/state.js");
 const readline = require("readline");
@@ -22,11 +22,11 @@ const manageServer = {
         }
     },
     
-    getNumberOfClients : async (server) => {
-        await server.getConnections((err, count) => {
+    getAndSendNumberOfClients : (server) => {
+        server.getConnections((err, count) => {
             if(err) return err;
             else {
-                updateDashboardClientCount(count);
+                dashboard.uploadClientCount(count);
             }
         });
     },
@@ -48,8 +48,8 @@ const manageServer = {
         });
     },
 
-    getAndSendSocketCommand : (client) => {
-        const currentClient = manageServer.getClientData(client);
+    getAndSendSocketCommand : async (client) => {
+        const currentClient = await manageServer.getClientData(client);
         rl.question(`${currentClient.name} # `, (cmd) => {
             if (cmd === "menu" || cmd === "exit") {
                 manageServer.gotoMainMenu();
@@ -64,7 +64,7 @@ const manageServer = {
         for (let i = 0; i < socketClients.length; i++) {
             console.log(`${i}) ${socketClients[i].address}`)
         }
-    }
+    },
 };
 
 module.exports = manageServer;
