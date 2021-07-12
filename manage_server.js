@@ -1,7 +1,7 @@
 "use strict";
 const updateDashboardClientCount = require("./webserver/ws_server.js");
 const socketClients = require("./sockets/clients.js");
-// Setup input prompt.
+const state = require("./sockets/state.js");
 const readline = require("readline");
 const rl = readline.createInterface({
     input  : process.stdin,
@@ -32,32 +32,39 @@ const manageServer = {
     },
 
     gotoMainMenu : () => {
-        console.log("Available machines:");
-        socketClients.map(socket => console.log(socket.address))
-        for (let i = 0; i < socketClients.length; i++) {
-            console.log(`${i}) ${socketClients[i].address}`)
-        }
+        manageServer.listAvailableClients();
         rl.question("$ ", (cmd) => {
+            let client;
             try {
-                const client = socketClients[cmd].client;
-                manageServer.getAndSendSocketCommand(client);
+                client = socketClients[cmd].client;
             } catch {
                 console.error("Unable to switch to client:",cmd);
                 manageServer.gotoMainMenu();
+
+                return;
             }
+            state.setCurrentConnection(client);
+            manageServer.getAndSendSocketCommand(client);
         });
     },
 
     getAndSendSocketCommand : (client) => {
         const currentClient = manageServer.getClientData(client);
         rl.question(`${currentClient.name} # `, (cmd) => {
-            if (cmd === "menu") {
+            if (cmd === "menu" || cmd === "exit") {
                 manageServer.gotoMainMenu();
             } else {
                 client.write(cmd);
             }
         });    
     },
+
+    listAvailableClients : () => {
+        console.log("Available machines:");
+        for (let i = 0; i < socketClients.length; i++) {
+            console.log(`${i}) ${socketClients[i].address}`)
+        }
+    }
 };
 
 module.exports = manageServer;
