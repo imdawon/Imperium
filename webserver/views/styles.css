@@ -1,5 +1,6 @@
 .client {
-    border: 1px solid red;
+    border: 3px solid rgb(0, 60, 255);
+    border-radius: 25px;
 }
 
 .client-name {
