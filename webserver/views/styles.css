@@ -6,6 +6,30 @@
     margin-left: 10px;
 }
 
+#connection-status-good {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    outline: black;
+    background-color: rgb(0, 196, 0);
+    box-shadow: 
+        0 0 10px 5px rgb(96, 255, 91),
+        0 0 10px 6px rgb(193, 250, 191),
+        0 0 14px 9px rgb(9, 255, 0);
+}
+
+#connection-status-warning {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    outline: black;
+    background-color: rgb(193, 196, 0);
+    box-shadow: 
+        0 0 10px 5px rgb(255, 244, 91),
+        0 0 10px 6px rgb(246, 250, 191),
+        0 0 14px 9px rgb(238, 255, 0);
+}
+
 main {
     display: grid;
     grid-template-columns: auto auto auto;

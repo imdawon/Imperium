@@ -2,7 +2,9 @@
 const dom = {
     main : document.getElementsByTagName("main")[0],
     clientCount : document.getElementById("client-count"),
+    connectionStatus : document.getElementById("connection-status"),
 }
+
 const renderNewClient = (client) => {
     const clientDiv = document.createElement("div");
     clientDiv.className = "client";
