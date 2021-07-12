@@ -18,6 +18,8 @@ const server = http.createServer((req, res) => {
             res.writeHead(404);
             res.end("404");
         }
+        if (url.slice(url.length-2, url.length) === "js")
+        res.setHeader("Content-Type", "text/javascript");
         res.writeHead(200);
         res.end(data);
     });  
