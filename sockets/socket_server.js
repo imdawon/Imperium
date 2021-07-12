@@ -47,6 +47,7 @@ server.on("connection", (client) => {
             } else {
                 console.log(clientResponse);
             }
+            manageServer.getAndSendSocketCommand(client);
         } catch (err) {
             console.error(`Could not save response from client ${client.remoteAddress}:${client.remotePort}`,err);
         }
@@ -64,3 +65,10 @@ const setClientName = (client, name) => {
 }
 
 module.exports = server;
+
+// PROBLEM:
+// ONCE WE SEND ONE COMMAND, WE DONT LOG THE RESPNOSE
+// WE ALSO DONT GET PROMPTED TO SEND ANOTHER MESSAGE
+
+// CHECK OUR CURRENT CLIENT - BUILD IN STATE
+// IF WE GET A MESSAGE AND ITS FROM THE CURRENT CLIENT, PRINT RES
