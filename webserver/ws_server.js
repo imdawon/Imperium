@@ -7,7 +7,6 @@ let dashboardSocket;
 wss.on("connection", (ws) => {
     dashboardSocket = ws;
     ws.on("message", (message) => {
-        if (message)
         console.log("Received:", message);
     });
 

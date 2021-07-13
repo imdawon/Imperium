@@ -5,11 +5,11 @@ const startWebSocket = () => {
     try {
         webSocket = new WebSocket("ws://127.0.0.1:8888");
     } catch {
-        dom.connectionStatus.id = "connection-status-warning";
+        commonDomElements.connectionStatus.id = "connection-status-warning";
     }
 
     webSocket.onopen = () => {
-        dom.connectionStatus.id = "connection-status-good";
+        commonDomElements.connectionStatus.id = "connection-status-good";
         webSocket.send("Connected to web dashboard.");
     }
     
@@ -28,7 +28,7 @@ const startWebSocket = () => {
 
     webSocket.onclose = () => {
         console.warn("Lost connection to websocket server. Retrying...");
-        dom.connectionStatus.id = "connection-status-warning";
+        commonDomElements.connectionStatus.id = "connection-status-warning";
         setTimeout(() => {
             startWebSocket();
         }, 1000);
