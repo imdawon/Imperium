@@ -16,13 +16,6 @@
     font-weight: normal;
 }
 
-#connection {
-    display: grid;
-    align-items: center;
-    grid-template-columns: 180px auto;
-    margin: 0 auto;
-}
-
 #connection-status-good {
     width: 10px;
     height: 10px;
@@ -47,11 +40,26 @@
         0 0 14px 9px rgb(238, 255, 0);
 }
 
+header {
+    border-bottom: 2px solid gray;
+}
+
 main {
     display: grid;
     grid-template-columns: auto auto auto;
     gap: 50px;
     margin: 0 1em 0 1em;
+}
+
+ul {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    list-style: none;
+    font-size: large;
+    align-items: center;
+}
+ul:nth-child(4) {
+    margin-left: 0;
 }
 
 @media (max-width: 960px) {
