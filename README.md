@@ -5,5 +5,10 @@
 4. Run `npm start` to start the web and socket servers.
 5. Run a socket client of your choice to connect to your local machines IP on port 11111.
 
+##
+
 ## Overview
+You need your own socket client software to connect to this server, none are provided in this repo.
+
+## Goals
 We want a lean server with a solid management dashboard. The only production dependency is the `ws` package.
