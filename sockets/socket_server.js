@@ -59,7 +59,7 @@ server.on("connection", (client) => {
 const saveNewClient = (client) => {
     const fullClientAddress = `${client.remoteAddress}:${client.remotePort}`;
     console.log(`[+] Connection receieved: ${fullClientAddress}`);
-    socketClients.push({ address : `${fullClientAddress}`, client, messageCount : 0, name: "", responseHistory : [], uptime: 0 });    
+     socketClients.push({ address : `${fullClientAddress}`, client, messageCount : 0, name: "", responseHistory : [], connectionStarted: Date.now() / 1000 });    
 }
 
 const setClientName = (client, name) => {
