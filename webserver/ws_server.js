@@ -8,6 +8,9 @@ wss.on("connection", (ws) => {
     dashboardSocket = ws;
     ws.on("message", (message) => {
         console.log("Received:", message);
+        if (message === "Connected to web dashboard.") {
+            // for each client, send the client data to the dashboard
+        }
     });
 
     ws.send("Connected to websocket server.");
@@ -18,7 +21,7 @@ const dashboard = {
         try {
             dashboardSocket.send(`clientCount ${count}`);
         } catch {
-            console.error("Unable to connect to dashboard. Try refreshing!");
+            console.error("Unable to send message to dashboard!");
         }
     },
 
