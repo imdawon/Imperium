@@ -20,21 +20,24 @@ const renderNewClient = (client) => {
     clientIP.innerText = client.address;
 
     const clientArchitecture = document.createElement("li"); 
-    clientArchitecture.innerText = client.architecture;
+    clientArchitecture.innerText = "Windows";
 
     const clientUptime = document.createElement("li");
-    clientUptime.innerText = `Time connected: ${Math.round(Date.now() / 1000 - client.connectionStarted)} seconds`;
+    clientUptime.innerText = "Time connected: 0 seconds";
 
     const refreshData = document.createElement("button");
     refreshData.innerText = "Refresh";
 
     refreshData.addEventListener("click", function() {
-        // refresh client data.
-    })
+        const currentHost = this.parentElement.children;
+        const epoch = getTimeConnected(currentHost[0].innerText);
+        refreshTimeConnected(currentHost[2], epoch);
+    });
     commonDomElements.main.append(clientDiv);
     clientDiv.append(clientHeader);
     clientHeader.append(clientDetailsList);
-    clientDetailsList.append(clientIP, clientArchitecture, clientUptime)
+    clientDetailsList.append(clientIP, clientArchitecture, clientUptime, refreshData);
+    saveClient(client.address, client.connectionStarted);
 };
 
 const updateClientCount = (count) => {
@@ -58,7 +61,11 @@ const renderAlert = (message, alertType) => {
             commonDomElements.alert.id = "alert-failure";
             break;
         default:
-            console.error("Error updating alert element!");
+            console.error("Unknown alert type: ", alertType);
             break;
     }
+}
+
+const refreshTimeConnected = (element, connectEpoch) => {
+    element.innerText = `Time connected: ${Math.round(Date.now() / 1000 - connectEpoch)} seconds`;
 }
