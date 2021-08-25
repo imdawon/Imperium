@@ -7,7 +7,7 @@ const state = {
 
     setCurrentConnection : (client) => {
         state.currentConnection = client;
-    },
-}
+    }
+};
 
 module.exports = state;
