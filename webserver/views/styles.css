@@ -1,5 +1,6 @@
 * {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    list-style: none;
 }
 
 html {
@@ -16,13 +17,12 @@ h1,h2,h3,h4,h5,h6,p,li {
     background-color: #171717;
 }
 
-.client-name {
+.client ul {
     font-weight: normal;
-    margin-left: 10px;
 }
 
-.client-name ul {
-    font-weight: normal;
+.client-name {
+    margin-left: 10px;
 }
 
 #connection-status-good {
@@ -53,6 +53,14 @@ header {
     border-bottom: 2px solid gray;
 }
 
+#header {
+    display: grid;
+    grid-template-columns: auto auto 175px 75px;
+    font-size: large;
+    align-items: center;
+
+}
+
 main {
     display: grid;
     grid-template-columns: auto auto auto;
@@ -60,13 +68,6 @@ main {
     margin: 1.5em 1em 0 1em;
 }
 
-ul {
-    display: grid;
-    grid-template-columns: auto auto 175px 75px;
-    list-style: none;
-    font-size: large;
-    align-items: center;
-}
 
 @media (max-width: 960px) {
     main {
