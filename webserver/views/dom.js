@@ -15,6 +15,7 @@ const renderNewClient = (client) => {
     clientHeader.innerText = client.name
 
     const clientDetailsList = document.createElement("ul");
+    clientDetailsList.style.padding = "0px 10px 0px 10px";
 
     const clientIP = document.createElement("li");
     clientIP.innerText = client.address;
@@ -29,13 +30,15 @@ const renderNewClient = (client) => {
     refreshData.innerText = "Refresh";
 
     refreshData.addEventListener("click", function() {
-        const currentHost = this.parentElement.children;
-        const epoch = getTimeConnected(currentHost[0].innerText);
-        refreshTimeConnected(currentHost[2], epoch);
+        const currentHostDetails = this.parentElement.children;
+        const hostIp = currentHostDetails[0];
+        const renderedTimeElapsed = getTimeConnected(hostIp.innerText);
+        const timeElement = currentHostDetails[2];
+        refreshTimeConnected(timeElement, renderedTimeElapsed);
     });
     commonDomElements.main.append(clientDiv);
     clientDiv.append(clientHeader);
-    clientHeader.append(clientDetailsList);
+    clientDiv.append(clientDetailsList);
     clientDetailsList.append(clientIP, clientArchitecture, clientUptime, refreshData);
     saveClient(client.address, client.connectionStarted);
 };
