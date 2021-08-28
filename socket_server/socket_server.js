@@ -1,6 +1,6 @@
 "use strict";
 const net = require("net");
-const dashboard = require("../webserver/ws_server.js");
+const dashboard = require("../web_server/ws_server.js");
 const manageServer = require("../manage_server.js");
 const port = 11111;
 const socketClients = require("./clients.js");
@@ -36,14 +36,16 @@ server.on("connection", (client) => {
 
     client.on("data", async (data) =>  {
         try {
-            const currentClient = await manageServer.getClientData(client);
+            const clientData = socketClients.get(`${client.remoteAddress}:${client.remotePort}`);
             // Prevent newline being added to shell prompt.
             const clientResponse = data.toString().replace("\n", "");
-            currentClient.responseHistory.push(clientResponse);
-            currentClient.messageCount++;
-            if (currentClient.messageCount <= 1) {
-                setClientName(currentClient, clientResponse);
-                dashboard.uploadNewConnectionData(manageServer.getClientData(client));
+            clientData.responseHistory.push(clientResponse);
+            
+            clientData.messageCount++;
+            
+            if (clientData.messageCount <= 1) {
+                setClientName(clientData, clientResponse);
+                dashboard.uploadNewConnectionData(clientData);
 
                 return;
             } else {
@@ -59,7 +61,7 @@ server.on("connection", (client) => {
 const saveNewClient = (client) => {
     const fullClientAddress = `${client.remoteAddress}:${client.remotePort}`;
     console.log(`[+] Connection receieved: ${fullClientAddress}`);
-     socketClients.push({ address : `${fullClientAddress}`, client, messageCount : 0, name: "", responseHistory : [], connectionStarted: Date.now() / 1000 });    
+    socketClients.set(fullClientAddress, { address: fullClientAddress, messageCount : 0, name: "", responseHistory : [], connectionStarted: Date.now() });    
 }
 
 const setClientName = (client, name) => {
