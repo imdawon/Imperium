@@ -1,7 +1,7 @@
 "use strict";
-const dashboard = require("./webserver/ws_server.js");
-const socketClients = require("./sockets/clients.js");
-const state = require("./sockets/state.js");
+const dashboard = require("./web_server/ws_server.js");
+const socketClients = require("./socket_server/clients.js");
+const state = require("./socket_server/state.js");
 const readline = require("readline");
 const rl = readline.createInterface({
     input  : process.stdin,
