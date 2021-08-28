@@ -2,6 +2,14 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+html {
+    background-color: rgb(46, 46, 46);
+}
+
+h1,h2,h3,h4,h5,h6,p,li {
+    color: rgb(209, 209, 209);
+}
+
 .client {
     border: 3px solid rgb(0, 60, 255);
     border-radius: 25px;
