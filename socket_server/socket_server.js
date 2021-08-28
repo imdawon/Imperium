@@ -51,7 +51,7 @@ server.on("connection", (client) => {
             } else {
                 console.log(clientResponse);
             }
-            manageServer.getAndSendSocketCommand(client);
+            manageServer.getAndSendSocketCommand(clientData);
         } catch (err) {
             console.error(`Could not save response from client ${client.remoteAddress}:${client.remotePort}`,err);
         }
@@ -61,7 +61,7 @@ server.on("connection", (client) => {
 const saveNewClient = (client) => {
     const fullClientAddress = `${client.remoteAddress}:${client.remotePort}`;
     console.log(`[+] Connection receieved: ${fullClientAddress}`);
-    socketClients.set(fullClientAddress, { address: fullClientAddress, messageCount : 0, name: "", responseHistory : [], connectionStarted: Date.now() });    
+    socketClients.set(fullClientAddress, { address: fullClientAddress, messageCount : 0, name: "", responseHistory : [], connectionStarted: Date.now(), client });    
 }
 
 const setClientName = (client, name) => {
