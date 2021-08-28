@@ -67,20 +67,24 @@ const renderAlert = (message, alertType) => {
 }
 
 const refreshTimeConnected = (element, connectEpoch) => {
+    const { unitOfTime, formattedDuration } = getTimeElapsedAndUnitOfTime(Math.round(Date.now() / 1000 - connectEpoch));
+    element.innerText = `Time connected: ${formattedDuration} ${unitOfTime}`;
+}
+
+const getTimeElapsedAndUnitOfTime = (duration) => {
     let unitOfTime = "seconds";
-    let timeElapsed = Math.round(Date.now() / 1000 - connectEpoch);
-    if (timeElapsed > 60) {
-        timeElapsed = Math.round(timeElapsed / 60);
+    let formattedDuration = duration;
+    if (duration > 60) {
+        formattedDuration = Math.round(duration / 60);
         unitOfTime = "minutes";
-        if (timeElapsed > 60) {
-            timeElapsed = timeElapsed / 60;
+        if (formattedDuration > 60) {
+            formattedDuration = formattedDuration / 60;
             unitOfTime = "hours";
-            if (timeElapsed > 24) {
-                timeElapsed = timeElapsed / 24;
+            if (formattedDuration > 24) {
+                formattedDuration = formattedDuration / 24;
                 unitOfTime = "days";
             }
         }
     }
-    
-    element.innerText = `Time connected: ${timeElapsed} ${unitOfTime}`;
+    return { unitOfTime, formattedDuration };
 }
