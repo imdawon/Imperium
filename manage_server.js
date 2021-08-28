@@ -32,11 +32,13 @@ const manageServer = {
     },
 
     gotoMainMenu : () => {
-        manageServer.listAvailableClients();
+        const clientsMap = manageServer.getAndListConnectedClients();
         rl.question("$ ", (cmd) => {
             let client;
             try {
-                client = socketClients[cmd].client;
+                const clientIp = clientsMap.get(parseInt(cmd));
+                client = socketClients.get(clientIp);
+                if (!client.name) throw new Error;
             } catch {
                 console.error("Unable to switch to client:",cmd);
                 manageServer.gotoMainMenu();
@@ -49,21 +51,27 @@ const manageServer = {
     },
 
     getAndSendSocketCommand : async (client) => {
-        const currentClient = await manageServer.getClientData(client);
-        rl.question(`${currentClient.name} # `, (cmd) => {
+        const clientSocket = client.client;
+        rl.question(`${client.name} # `, (cmd) => {
             if (cmd === "menu" || cmd === "exit") {
                 manageServer.gotoMainMenu();
             } else {
-                client.write(cmd);
+                clientSocket.write(cmd);
             }
         });    
     },
 
-    listAvailableClients : () => {
-        console.log("Available machines:");
-        for (let i = 0; i < socketClients.length; i++) {
-            console.log(`${i}) ${socketClients[i].address}`)
+    getAndListConnectedClients : () => {
+        console.log("Connected machines:");
+        const clientsMap = new Map();
+        let index = 0;
+        for (const key of socketClients.keys()) {
+            console.log(`${index}) ${key}`);
+            clientsMap.set(index, key)
+
+            index++;
         }
+        return clientsMap;
     },
 };
 
