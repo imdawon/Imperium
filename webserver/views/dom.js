@@ -12,19 +12,19 @@ const renderNewClient = (client) => {
 
     const clientHeader = document.createElement("h3");
     clientHeader.className = "client-name";
-    clientHeader.innerText = client.name
+    clientHeader.innerText = `🖥️ ${client.name}`;
 
     const clientDetailsList = document.createElement("ul");
     clientDetailsList.style.padding = "0px 10px 0px 10px";
 
     const clientIP = document.createElement("li");
-    clientIP.innerText = client.address;
+    clientIP.innerText = `🇺🇸 ${client.address}`;
 
     const clientArchitecture = document.createElement("li"); 
-    clientArchitecture.innerText = "Windows";
+    clientArchitecture.innerText = "🪟 Windows";
 
     const clientUptime = document.createElement("li");
-    clientUptime.innerText = "Time connected: 0 seconds";
+    clientUptime.innerText = "⏲️ < 1 seconds.";
 
     const refreshData = document.createElement("button");
     refreshData.innerText = "Refresh";
@@ -71,7 +71,7 @@ const renderAlert = (message, alertType) => {
 
 const refreshTimeConnected = (element, connectEpoch) => {
     const { unitOfTime, formattedDuration } = getTimeElapsedAndUnitOfTime(Math.round(Date.now() / 1000 - connectEpoch));
-    element.innerText = `Time connected: ${formattedDuration} ${unitOfTime}`;
+    element.innerText = `⏲️ ${formattedDuration} ${unitOfTime}`;
 }
 
 const getTimeElapsedAndUnitOfTime = (duration) => {
