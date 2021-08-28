@@ -11,8 +11,9 @@ h1,h2,h3,h4,h5,h6,p,li {
 }
 
 .client {
-    border: 3px solid rgb(0, 60, 255);
-    border-radius: 25px;
+    border: 6px solid rgb(175, 175, 175);
+    border-radius: 5px;
+    background-color: #171717;
 }
 
 .client-name {
