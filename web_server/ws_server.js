@@ -1,5 +1,6 @@
 "use strict";
 const server = require("./http.js");
+const socketClients = require("../socket_server/clients.js");
 const WebSocket = require("ws");
 const wss = new WebSocket.Server({ server });
 let dashboardSocket;
@@ -9,7 +10,12 @@ wss.on("connection", (ws) => {
     ws.on("message", (message) => {
         console.log("Received:", message);
         if (message === "Connected to web dashboard.") {
-            // for each client, send the client data to the dashboard
+            console.log(JSON.stringify(socketClients) + " socketClients");
+            if (socketClients.size > 0) {
+                for (const value of socketClients) {
+                    dashboardSocket.send(`newClient ${JSON.stringify(value)}`);
+                }    
+            }
         }
     });
 
