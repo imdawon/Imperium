@@ -11,9 +11,12 @@ wss.on("connection", (ws) => {
         console.log("Received:", message);
         if (message === "Connected to web dashboard.") {
             console.log(JSON.stringify(socketClients) + " socketClients");
-            if (socketClients.size > 0) {
+            if (socketClients.size >= 1) {
+                let index = 1;
                 for (const value of socketClients) {
                     dashboardSocket.send(`newClient ${JSON.stringify(value)}`);
+                    dashboard.uploadClientCount(index);
+                    index++;
                 }    
             }
         }
