@@ -7,6 +7,9 @@ const commonDomElements = {
 }
 
 const renderNewClient = (client) => {
+    if (client.length > 1) {
+        client = client[1];
+    }
     const clientDiv = document.createElement("div");
     clientDiv.className = "client";
 
