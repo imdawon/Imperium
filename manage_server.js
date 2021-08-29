@@ -9,19 +9,6 @@ const rl = readline.createInterface({
 });
 
 const manageServer = {
-    getClientData : (client) => {
-        try {
-            for (let i = 0; i < socketClients.length; i++) {
-                if (socketClients[i].address === client.remoteAddress + ":" + client.remotePort) {
-                    return socketClients[i];
-                }
-            }
-        } catch {
-            console.error("Could not find client.");
-            return;
-        }
-    },
-    
     getAndSendNumberOfClients : (server) => {
         server.getConnections((err, count) => {
             if(err) return err;
@@ -68,7 +55,6 @@ const manageServer = {
         for (const key of socketClients.keys()) {
             console.log(`${index}) ${key}`);
             clientsMap.set(index, key)
-
             index++;
         }
         return clientsMap;
