@@ -19,6 +19,7 @@ const startWebSocket = () => {
             updateClientCount(clientCount);
         }
         else if (event.data.slice(0,9) === "newClient") {
+            console.log(event.data);
             const client = JSON.parse(event.data.replace("newClient", ""));
             renderNewClient(client);
         }

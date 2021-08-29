@@ -1,4 +1,4 @@
 "use strict"
-const clients = new Map();
+const socketClients = new Map();
 
-module.exports = clients;
+module.exports = socketClients;
