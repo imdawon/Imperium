@@ -21,7 +21,9 @@ The client software I'm developing in tandem with the dashboard is not available
   * The web dashboard is only accessible from the local loopback network on the machine it runs on.
 
 ## TODO
-
+* TODO 
+ * Be able to send client commands / run client feature modules from the dashboard.
+ * Get more platform data from client machine during first connection.
 
 * COMPLETE 
   * ~~Render connected clients properly even after reloading dashboard. Do this by checking for server data on page load.~~
