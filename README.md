@@ -18,7 +18,7 @@ The client software I'm developing in tandem with the dashboard is not available
  * We want a robust management dashboard with a clean and rich user interface. 
  * Minimum external dependencies. The only production dependency is the `ws` package.
  * A limited attack surface. 
-  * The web dashboard is only accessible from the local loopback network on the machine it runs on.
+   * The web dashboard is only accessible from the local loopback network on the machine it runs on.
 
 ## Todo
 * In Progress
