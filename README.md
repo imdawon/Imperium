@@ -8,7 +8,9 @@
 ##
 
 ## Overview
- Visualize and manage multiple remote clients via Node CLI and an HTML5 dashboard. The client software I'm developing in tandem with the dashboard is not available, you need to build your own client to properly interface with the server. This should be easy to do if you can understand the socket server code.
+Visualize and manage multiple remote clients via Node CLI and an HTML5 dashboard. 
+
+The client software I'm developing in tandem with the dashboard is not available, you need to build your own client to properly interface with the server. This should be easy to do if you can understand the socket server code.
 
 ## Goals
  * We want a robust management dashboard with a clean and rich user interface. 
