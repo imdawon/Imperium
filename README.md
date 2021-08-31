@@ -8,7 +8,9 @@
 ##
 
 ## Overview
-Visualize and manage multiple remote clients via Node CLI and an HTML5 dashboard. 
+Visualize and manage multiple remote clients via Node CLI and an HTML5 dashboard.
+
+The web dashboard and socket server communicate about client activity via a WebSocket connection.
 
 The client software I'm developing in tandem with the dashboard is not available, you need to build your own client to properly interface with the server. This should be easy to do if you can understand the socket server code.
 
@@ -23,3 +25,4 @@ The client software I'm developing in tandem with the dashboard is not available
 
 * COMPLETE 
   * ~~Render connected clients properly even after reloading dashboard. Do this by checking for server data on page load.~~
+  * ~~Attempt to reconnect to WebSocket server if the connection is lost.~~
