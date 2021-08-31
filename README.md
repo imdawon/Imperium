@@ -8,16 +8,16 @@
 ##
 
 ## Overview
-You need your own socket client software to connect to this server, none are provided in this repo.
+ Visualize and manage multiple remote clients via Node CLI and an HTML5 dashboard. The client software I'm developing in tandem with the dashboard is not available, you need to build your own client to properly interface with the server. This should be easy to do if you can understand the socket server code.
 
 ## Goals
-We want a lean server with a solid management dashboard. The only production dependency is the `ws` package.
+ * We want a robust management dashboard with a clean and rich user interface. 
+ * Minimum external dependencies. The only production dependency is the `ws` package.
+ * A limited attack surface. 
+  * The web dashboard is only accessible from the local loopback network on the machine it runs on.
 
 ## TODO
+
+
 * COMPLETE 
   * ~~Render connected clients properly even after reloading dashboard. Do this by checking for server data on page load.~~
-
-* NEXT UP
-  * Write up documentation for client comppatibility so people can make custom clients that work with our socket server.
-  * Be able to send client commands via dashboard.
-  * Actually get platform data.
