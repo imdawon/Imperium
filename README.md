@@ -14,6 +14,6 @@ You need your own socket client software to connect to this server, none are pro
 We want a lean server with a solid management dashboard. The only production dependency is the `ws` package.
 
 ## TODO
+~~Render connected clients properly even after reloading dashboard. Do this by checking for server data on page load.~~
 * Be able to send client commands via dashboard.
-* Render connected clients properly even after reloading dashboard. Do this by checking for server data on page load.
 * Actually get platform data.
