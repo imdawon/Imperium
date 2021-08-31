@@ -20,10 +20,11 @@ The client software I'm developing in tandem with the dashboard is not available
  * A limited attack surface. 
   * The web dashboard is only accessible from the local loopback network on the machine it runs on.
 
-## TODO
+## Todo
+* In Progress
   * Be able to send client commands / run client feature modules from the dashboard.
   * Get more platform data from client machine during first connection.
 
-* COMPLETE 
+* Complete 
   * ~~Render connected clients properly even after reloading dashboard. Do this by checking for server data on page load.~~
   * ~~Attempt to reconnect to WebSocket server if the connection is lost.~~
