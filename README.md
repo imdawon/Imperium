@@ -21,7 +21,6 @@ The client software I'm developing in tandem with the dashboard is not available
    * A limited attack surface. 
      * The web dashboard is only accessible from the local loopback network on the machine it runs on.
 * Client
-   * VNC
    * Keylogging
    * File Transfer
    * Desktop Screenshot   
